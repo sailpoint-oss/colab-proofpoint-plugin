@@ -1,0 +1,51 @@
+--
+-- SQLServer DDL plugin script
+--
+
+-- Table to store settings
+CREATE TABLE iplus_proofpoint_settings (
+    app_list VARCHAR(max),
+    vap_list VARCHAR(max),
+    last_updated BIGINT
+);
+
+INSERT INTO iplus_proofpoint_settings (app_list, vap_list, last_updated) VALUES ('[]', '[]', cast(DATEDIFF(s, '19700101', cast(CURRENT_TIMESTAMP as datetime)) as bigint) * 1000);
+
+-- Table to store data for pw reset & access control requests 
+CREATE TABLE iplus_proofpoint_data (
+    id VARCHAR(36) NOT NULL,
+    identity_id VARCHAR(128) NOT NULL,
+    email_id VARCHAR(512) NOT NULL,
+    type VARCHAR(128),
+    result VARCHAR(max),
+    status VARCHAR(16),
+    message VARCHAR(512),
+    created BIGINT,
+    last_updated BIGINT,
+    PRIMARY KEY (id) 
+);
+
+CREATE INDEX idx_iplus_proofpoint_data_identity_id ON iplus_proofpoint_data (identity_id);
+CREATE INDEX idx_iplus_proofpoint_data_email_id ON iplus_proofpoint_data (email_id);
+CREATE INDEX idx_iplus_proofpoint_data_type ON iplus_proofpoint_data (type);
+CREATE INDEX idx_iplus_proofpoint_data_status ON iplus_proofpoint_data (status); 
+CREATE INDEX idx_iplus_proofpoint_data_created ON iplus_proofpoint_data (created);
+
+
+-- Table to store data for VAP Users
+CREATE TABLE iplus_proofpoint_vap_data (
+    id VARCHAR(36) NOT NULL,
+    identity_id VARCHAR(128) NOT NULL,
+    email_id VARCHAR(512) NOT NULL,
+    result VARCHAR(max),
+    status VARCHAR(16),
+    message VARCHAR(512),
+    created BIGINT,
+    last_updated BIGINT,
+    PRIMARY KEY (id) 
+);
+
+CREATE INDEX idx_iplus_proofpoint_vap_data_identity_id ON iplus_proofpoint_vap_data (identity_id); 
+CREATE INDEX idx_iplus_proofpoint_vap_data_email_id ON iplus_proofpoint_vap_data (email_id); 
+CREATE INDEX idx_iplus_proofpoint_vap_data_status ON iplus_proofpoint_vap_data (status); 
+CREATE INDEX idx_iplus_proofpoint_vap_data_created ON iplus_proofpoint_vap_data (created);

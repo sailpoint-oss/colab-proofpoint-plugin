@@ -1,0 +1,10 @@
+# Ignore everything in this directory
+/.classpath
+/.project
+/.idea/
+/.DS_Store
+/.settings/
+/bin/
+/build/
+/out/
+.idea/workspace.xml

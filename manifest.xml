@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Plugin certificationLevel="None" displayName="Proofpoint Plugin"
+	minSystemVersion="8.0" name="ProofpointPlugin" version="1.0">
+	<Attributes>
+		<Map>
+			<entry key="minUpgradableVersion" value="1.0" />
+			<entry key="fullPage">
+				<value>
+					<FullPage title="Proofpoint Plugin" />
+				</value>
+			</entry>
+			<entry key="taskExecutors">
+				<value>
+					<List>
+						<String>com.sailpoint.plugin.proofpoint.ProofpointAlertTaskExecutor</String>
+						<String>com.sailpoint.plugin.proofpoint.ProofpointVAPTaskExecutor</String>
+					</List>
+				</value>
+			</entry>
+			<entry key="restResources">
+				<value>
+					<List>
+						<String>com.sailpoint.plugin.proofpoint.rest.ProofpointPluginRestManager</String>
+					</List>
+				</value>
+			</entry>
+			<entry key="scriptPackages">
+				<value>
+					<List>
+						<String>com.sailpoint.plugin.proofpoint</String>
+						<String>com.sailpoint.plugin.proofpoint.db</String>
+						<String>com.sailpoint.plugin.proofpoint.object</String>
+						<String>com.sailpoint.plugin.proofpoint.rest</String>
+						<String>com.sailpoint.plugin.proofpoint.utils</String>
+					</List>
+				</value>
+			</entry>
+			<entry key="settingsForm">
+				<value>
+					<Form name="Proofpoint Plugin Settings">
+						<Attributes>
+							<Map>
+								<entry key="pageTitle" value="Proofpoint Plugin Settings" />
+								<entry key="title" value="Proofpoint Plugin Settings" />
+							</Map>
+						</Attributes>
+						<Description>Form to display Proofpoint plugin settings.</Description>
+
+						<!-- Connectivity Configuration -->
+						<Section name="Auth Configuration">
+							<Field displayName="Proofpoint URL"
+								helpKey="The URL (domain) of the Proofpoint server."
+								name="baseUrl" type="string" required="true">
+							</Field>
+							<Field displayName="Service Principal"
+								name="servicePrincipal"
+								helpKey="The Service Principal for Authenticaiton."
+								type="string" required="true">
+							</Field>
+							<Field displayName="Secret" name="secret"
+								helpKey="The Secret for Authenticaiton." type="secret"
+								required="true">
+							</Field>
+							<Field displayName="VAP List Age"
+								helpKey="The amount (in days) the identity has been on the VAP list - value can be 14, 30, or 90. If not specified will default to 14."
+								name="vapListAge" type="string" required="false">
+								<AllowedValues>
+									<String>14</String>
+									<String>30</String>
+									<String>90</String>
+								</AllowedValues>
+							</Field>
+						</Section>
+
+						<!-- Application Configuration -->
+						<Section name="Application Configuration">
+							<Field displayName="Application Name"
+								helpKey="Name of the Proofpoint Application (for alert creation)."
+								name="applicationName" type="string" required="true">
+								<DefaultValue>
+									<String>Proofpoint Alert Application</String>
+								</DefaultValue>
+							</Field>
+						</Section>
+
+						<!-- Update Password Configuration -->
+						<Section name="Update Password Configuration">
+							<Field displayName="Enable password reset"
+								helpKey="Indicates whether or not Proofpoint is allowed to update password."
+								name="isUpdatePwEnabled" type="boolean">
+								<DefaultValue>
+									<Boolean>true</Boolean>
+								</DefaultValue>
+							</Field>
+						</Section>
+
+						<!-- Alert Configuration -->
+						<Section name="Alert Configuration">
+							<Field displayName="Enable alert creation"
+								helpKey="Indicates whether or not Proofpoint is allowed to generate IdentityIQ alerts."
+								name="isAlertEnabled" type="boolean">
+								<DefaultValue>
+									<Boolean>true</Boolean>
+								</DefaultValue>
+							</Field>
+						</Section>
+					</Form>
+				</value>
+			</entry>
+			<entry key="settings">
+				<value>
+					<List>
+						<!-- Connectivity Configuration -->
+						<Setting dataType="string"
+							helpText="The URL (domain) of the Proofpoint service."
+							label="Proofpoint URL" name="baseUrl" defaultValue="" />
+						<Setting dataType="string"
+							helpText="The Service Principal for Authenticaiton."
+							label="Service Principal" name="servicePrincipal" defaultValue="" />
+						<Setting dataType="secret"
+							helpText="The Secret for Authenticaiton." label="Secret"
+							name="secret" defaultValue="" />
+						<Setting dataType="string"
+							helpText="The amount (in days) the identity has been on the VAP list - value can be 14, 30, or 90. If not specified will default to 14."
+							label="VAP List Age" name="vapListAge" defaultValue="14" />
+
+						<!-- Application Configuration -->
+						<Setting dataType="string"
+							helpText="Name of the Proofpoint Application (for alert creation)."
+							label="Proofpoint Application" name="applicationName"
+							defaultValue="Proofpoint Alert Application" />
+
+						<!-- Update Password Configuration -->
+						<Setting dataType="boolean"
+							helpText="Indicates whether or not password reset flow should be enabled."
+							label="Enable password reset" name="isUpdatePwEnabled"
+							defaultValue="true" />
+
+						<!-- Alert Configuration -->
+						<Setting dataType="boolean"
+							helpText="Indicates if an alert should be created for each user in the VAP list."
+							label="Create alerts" name="isAlertEnabled" defaultValue="true" />
+					</List>
+				</value>
+			</entry>
+			<entry key="snippets">
+				<value>
+					<List>
+						<Snippet regexPattern=".*" rightRequired="proofPointAdmin">
+							<Scripts>
+								<String>ui/js/snippets/header.js</String>
+							</Scripts>
+							<StyleSheets>
+								<String>ui/css/styles.css</String>
+							</StyleSheets>
+						</Snippet>
+					</List>
+				</value>
+			</entry>
+		</Map>
+	</Attributes>
+</Plugin>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Proofpoint Very Attacked Persons" type="CertificationScheduleEntitySelector">
+      <Description>
+            This rule is optionally run to determine which entities to certify as part of a certification campaign. It can return either a Filter object or a list of identity names. If a Filter object is returned, that will be queries against Identity objects to find the identity names.
+      </Description>
+      <Signature returnType="Filter or List of Strings">
+        <Inputs>
+          <Argument name="definition">
+            <Description>
+                The sailpoint.object.CertificationDefinition that is being used to generate the certification campaign
+            </Description>
+          </Argument>
+        </Inputs>
+        <Returns>
+          <Argument name="Filter or List of Strings">
+            <Description>
+                If returning a Filter, that will be used to query for sailpoint.object.Identity names to include. If returning a list of strings, those should be the names of sailpoint.object.Identity objects to include.
+            </Description>
+          </Argument>
+        </Returns>
+      </Signature>
+      <Source>
+            <![CDATA[
+                import sailpoint.object.*;
+                import com.sailpoint.plugin.proofpoint.*;
+
+                List<String> vapNames = ProofpointHelper.getSelectedVAPListNames();
+
+                return vapNames;
+            ]]>
+      </Source>
+</Rule>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE TaskDefinition PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<TaskDefinition
+	executor="com.sailpoint.plugin.proofpoint.ProofpointVAPTaskExecutor"
+	name="Proofpoint - Get VAP List" progressInterval="5000"
+	progressMode="Percentage" subType="task_item_type_generic"
+	type="Generic">
+	<Attributes>
+		<Map>
+			<entry key="pluginName" value="ProofpointPlugin" />
+		</Map>
+	</Attributes>
+	<Description>This task will fetch VAP list from Proofpoint.</Description>
+	<Signature>
+		<Inputs>
+		</Inputs>
+		<Returns>
+			<Argument name="status" type="boolean">
+				<Prompt>Pass/Fail</Prompt>
+			</Argument>
+			<Argument name="vapList" type="boolean">
+				<Prompt>Number of Very Attacked Persons from Proofpoint</Prompt>
+			</Argument>
+		</Returns>
+	</Signature>
+</TaskDefinition>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE sailpoint PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<sailpoint>
+	<SPRight name="proofpointPluginAdmin"
+		displayName="Proofpoint Plugin Administrator">
+		<Description>Allows a user to access plugin setting.</Description>
+	</SPRight>
+
+	<Capability name="ProofpointPluginAdministrator"
+		displayName="Proofpoint Plugin Administrator">
+		<Description>Proofpoint Plugin Administrator</Description>
+		<RightRefs>
+			<Reference class="sailpoint.object.SPRight"
+				name="proofpointPluginAdmin" />
+		</RightRefs>
+	</Capability>
+</sailpoint>

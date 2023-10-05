@@ -1,0 +1,51 @@
+--
+-- Oracle DDL plugin script
+--
+
+-- Table to store settings
+CREATE TABLE iplus_proofpoint_settings (
+    app_list CLOB,
+    vap_list CLOB,
+    last_updated NUMBER(19)
+);
+
+INSERT INTO iplus_proofpoint_settings (app_list, vap_list, last_updated) VALUES ('[]', '[]', ((sysdate - to_date('01-JAN-1970','DD-MON-YYYY')) * (86400)));
+
+-- Table to store data for pw reset & access control requests 
+CREATE TABLE iplus_proofpoint_data (
+    id VARCHAR2(36) NOT NULL,
+    identity_id VARCHAR2(128) NOT NULL,
+    email_id VARCHAR2(512) NOT NULL,
+    type VARCHAR2(128),
+    result CLOB,
+    status VARCHAR2(16),
+    message VARCHAR2(512),
+    created NUMBER(19),
+    last_updated NUMBER(19),
+    PRIMARY KEY (id) 
+);
+
+CREATE INDEX data_identity_id ON iplus_proofpoint_data (identity_id);
+CREATE INDEX data_email_id ON iplus_proofpoint_data (email_id);
+CREATE INDEX data_type ON iplus_proofpoint_data (type);
+CREATE INDEX data_status ON iplus_proofpoint_data (status);
+CREATE INDEX data_created ON iplus_proofpoint_data (created);
+
+
+-- Table to store data for VAP Users
+CREATE TABLE iplus_proofpoint_vap_data (
+    id VARCHAR2(36) NOT NULL,
+    identity_id VARCHAR2(128) NOT NULL,
+    email_id VARCHAR2(512) NOT NULL,
+    result CLOB,
+    status VARCHAR2(16),
+    message VARCHAR2(512),
+    created NUMBER(19),
+    last_updated NUMBER(19),
+    PRIMARY KEY (id) 
+);
+
+CREATE INDEX vap_data_identity_id ON iplus_proofpoint_vap_data (identity_id);
+CREATE INDEX vap_data_email_id ON iplus_proofpoint_vap_data (email_id);
+CREATE INDEX vap_data_status ON iplus_proofpoint_vap_data (status);
+CREATE INDEX vap_data_created ON iplus_proofpoint_vap_data (created);
