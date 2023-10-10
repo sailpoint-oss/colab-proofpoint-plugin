@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application
+	connector="sailpoint.connector.DelimitedFileConnector"
+	featuresString="DIRECT_PERMISSIONS, NO_RANDOM_ACCESS, DISCOVER_SCHEMA"
+	icon="enterpriseIcon" name="Proofpoint Alert Application"
+	profileClass="spadmin" type="DelimitedFile">
+	<Attributes>
+		<Map>
+			<entry key="afterProvisioningRule" />
+			<entry key="alert.columnNames" />
+			<entry key="alert.commentCharacter" />
+			<entry key="alert.delimiter" />
+			<entry key="alert.file" />
+			<entry key="alert.fileEncoding" />
+			<entry key="alert.filterEmptyRecords">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="alert.filterString" />
+			<entry key="alert.hasHeader">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="alert.indexColumn" />
+			<entry key="alert.isCaseInsensitiveMerge">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="alert.isSortedByIndexColumn">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="alert.mergeColumns" />
+			<entry key="alert.mergeRows">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="alert.numberOfLinesToSkip" />
+			<entry key="alert.regularExpression" />
+			<entry key="alert.stopIfLineHasWrongColumnLength">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="beforeProvisioningRule" />
+			<entry key="compositeDefinition" />
+			<entry key="fileEncoding" value="spadmin" />
+			<entry key="filetransport" value="local" />
+			<entry key="filterEmptyRecords">
+				<value>
+					<Boolean>true</Boolean>
+				</value>
+			</entry>
+			<entry key="group.filetransport" value="local" />
+			<entry key="group.filterEmptyRecords">
+				<value>
+					<Boolean>true</Boolean>
+				</value>
+			</entry>
+			<entry key="group.partitionMode" value="auto" />
+			<entry key="hasHeader">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="isCaseInsensitiveMerge">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="isSortedByIndexColumn">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="mergeRows">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="nativeChangeDetectionAttributeScope"
+				value="entitlements" />
+			<entry key="nativeChangeDetectionAttributes" />
+			<entry key="nativeChangeDetectionEnabled">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="nativeChangeDetectionOperations" />
+			<entry key="parseType" value="delimited" />
+			<entry key="partitionMode" value="auto" />
+			<entry key="stopIfLineHasWrongColumnLength">
+				<value>
+					<Boolean></Boolean>
+				</value>
+			</entry>
+			<entry key="sysDescriptions">
+				<value>
+					<Map>
+						<entry key="en_US" />
+					</Map>
+				</value>
+			</entry>
+			<entry key="templateApplication" value="DelimitedFile Template" />
+			<entry key="transportUserPassword" value="" />
+		</Map>
+	</Attributes>
+	<Owner>
+		<Reference class="sailpoint.object.Identity" name="spadmin" />
+	</Owner>
+	<Schemas>
+		<Schema displayAttribute="" identityAttribute=""
+			instanceAttribute="" nativeObjectType="account" objectType="account"
+			permissionsRemediationModificationType="None" />
+		<Schema displayAttribute="" identityAttribute=""
+			instanceAttribute="" nativeObjectType="Proofpoint Alert"
+			objectType="alert" permissionsRemediationModificationType="None" />
+	</Schemas>
+</Application>

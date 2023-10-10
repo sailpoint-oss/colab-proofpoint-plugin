@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell"
+	name="Proofpoint Password Update Alert Match Rule"
+	type="AlertMatch">
+	<Description>This is an example rule of type 'AlertRule'. It can be
+		used in the definition of an Alert instead of a match filter. The return
+		value should be an object representing 'true' or 'false' boolean values,
+		meaning either the alert being examined in the input matches what you
+		want (true) or does not (false).
+	</Description>
+	<Signature returnType="boolean">
+		<Inputs>
+			<Argument name="alert">
+				<Description>
+					Alert that is being evaluated for rule match.
+				</Description>
+			</Argument>
+			<Argument name="log">
+				<Description>
+					log4j Logger Object.
+				</Description>
+			</Argument>
+			<Argument name="context">
+				<Description>
+					SailPointContext Object.
+				</Description>
+			</Argument>
+		</Inputs>
+	</Signature>
+	<Source>
+        <![CDATA[
+              import sailpoint.object.*;
+
+			  log.debug("Proofpoint alert match rule init...");
+			  
+              boolean ret = false;
+              String type = (String) alert.getType();
+              log.debug("Type of alert : " + type);
+              
+              if(null != type){
+              
+              	  // type can be only of following types - Malware, Phish, Spam
+                  if(type.equalsIgnoreCase("Malware") || type.equalsIgnoreCase("Phish")){
+                  
+                      log.debug("Alert matched : " + alert.toXml());
+                      ret = true;
+                  }
+              }
+
+              return ret;
+    	]]>
+	</Source>
+</Rule>

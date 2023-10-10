@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE sailpoint PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+
+<!-- (c) Copyright 2019 SailPoint Technologies, Inc., All Rights Reserved. -->
+
+<sailpoint>
+
+	<QuickLink action="external" category="ProofpointPlugin"
+		messageKey="Proofpoint Plugin" name="ProofpointPlugin" ordering="4">
+		<Attributes>
+			<Map>
+				<entry key="url"
+					value="plugins/pluginPage.jsf?pn=ProofpointPlugin" />
+			</Map>
+		</Attributes>
+		<QuickLinkOptions allowSelf="true">
+			<DynamicScopeRef>
+				<Reference class="sailpoint.object.DynamicScope"
+					name="Everyone" />
+			</DynamicScopeRef>
+		</QuickLinkOptions>
+	</QuickLink>
+
+</sailpoint>

@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:a4j="http://richfaces.org/a4j" xmlns:sp="http://sailpoint.com/ui">
+
+<body>
+<ui:composition>
+    <div class="container" ng-app="Proofpoint"
+         ng-controller="proofpointController as ctrl">
+
+        <div id="start-page" class="slide-up">
+            <div class="row m-t" style=""></div>
+
+            <div class="row m-t">
+                <div id="pluginTitle" class="panel panel-default">
+                    <div class="panel-heading bg-light lter">
+							<span class="panel-title">
+								<h2>Proofpoint Plugin</h2>
+							</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div id="main" class="header bg-white">
+                <ul id="list" class="nav nav-tabs tabs">
+                    <li class="nav active"><a data-toggle="tab"
+                                              href="#applications">Password Reset</a></li>
+                    <li class="nav"><a data-toggle="tab" href="#VAPList">VAP
+                        List</a></li>
+                </ul>
+                <form id="form" name="proofpointForm">
+                    <div class="tab-content">
+
+                        <div class="tab-pane fade in active" id="applications">
+                            <div class="row m-t">
+                                <div id="appPanel" class="panel panel-default">
+                                    <div class="panel-heading bg-light lter">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+												<span class="title"><strong id="appHeading" class="heading-align">Applications
+														Permitting Password Reset</strong></span>
+                                                <span id="appRefresh" class="pull-right refresh-icon">
+                                                <button class="btn btn-sm btn-default"
+                                                        ng-click="ctrl.refreshAppList()">
+                                                    <i ng-class="ctrl.spinRefreshIcon ? 'fa fa-refresh rotate down' : 'fa fa-refresh rotate'"/>
+                                                </button>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body proofpointForm">
+                                        <ui:fragment rendered="true">
+                                            <div class="spContent">
+                                                <div id="appDesc" class="text-desc">
+                                                    Application(s) in the below list supports password reset. By selecting the application(s), you authorize Proofpoint to reset the password.
+                                                </div>
+                                                <!--                                                <div class="search-box">-->
+                                                <!--                                                    <span><input type="text" ng-model="searchText" id="search"-->
+                                                <!--                                                                 class="tbl-search"-->
+                                                <!--                                                                 placeholder="Search"/></span>-->
+                                                <!--                                                </div>-->
+                                                <table id="appTable" class="spTable table-responsive table-hover mytable"
+                                                       cellspacing="0" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th id="name" class="col-width"><strong>Name</strong></th>
+                                                        <th id="enable" class="chk-align"><strong>Enabled</strong></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr dir-paginate="application in ctrl.appList | filter:searchText | itemsPerPage:25"
+                                                        pagination-id="applications" ng-if="ctrl.hasAppData">
+                                                        <td>{{ application.appName }}</td>
+                                                        <td id="selectApp" class="chk-align"><input type="checkbox" name="appln"
+                                                                                     ng-model="application.selected"
+                                                                                     ng-click="ctrl.setSaveButton(); ctrl.setState()"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-if="!ctrl.hasAppData">
+                                                        <td colspan="2" id="appNoData"
+                                                            class="lbl-noData">No Data Found. Please click the refresh button above.
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </ui:fragment>
+
+                                        <div class="col-sm-12">
+                                            <div id="applicationPaging" class="alignPaging">
+                                                <dir-pagination-controls pagination-id="applications"
+                                                                         direction-links="true"
+                                                                         boundary-links="true">
+                                                </dir-pagination-controls>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade in" id="VAPList">
+                            <div class="row m-t">
+                                <div id="vapPanel" class="panel panel-default">
+                                    <div class="panel-heading bg-light lter">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                            <span id="vapText" class="title"><strong id="vapHeading"
+                                                    class="heading-align">VAP(Very Attacked Persons) List</strong></span>
+                                                <span id="vapRefresh" class="pull-right refresh-icon">
+                                                <label><b>Last Updated Date: </b></label>
+                                                <label id="date" class="lbl-date">{{ ctrl.formatDate() }}</label>
+                                                 <button ng-click="ctrl.refreshVapList()"
+                                                         class="btn btn-sm btn-default">
+                                                    <i ng-class="ctrl.spinRefreshIcon ? 'fa fa-refresh rotate down' : 'fa fa-refresh rotate'"/>
+                                                </button>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body proofpointForm">
+                                        <ui:fragment rendered="true">
+                                            <div class="spContent">
+                                                <div id="vapDesc" class="text-desc" ng-if="ctrl.hasVapData">
+                                                    The VAP(Very Attacked Persons) list age is {{ctrl.vapListAge}} for the following records. For any configuration related changes, please visit plugin settings page.
+                                                    <br>To view the most updated data, click the refresh button above.</br>
+                                                </div>
+                                                <table id="vapTable" class="spTable table-responsive table-hover mytable"
+                                                       cellspacing="0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th><strong>Name</strong></th>
+                                                        <th><strong>Display Name</strong></th>
+                                                        <th><strong>Email</strong></th>
+                                                        <th id="select" class="chk-align"><strong>Select</strong></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr dir-paginate="user in ctrl.vapList | itemsPerPage:25"
+                                                        pagination-id="users"
+                                                        ng-if="ctrl.hasVapData">
+                                                        <td>{{user.identityName}}</td>
+                                                        <td>{{user.displayName}}</td>
+                                                        <td>{{user.emailId}}</td>
+                                                        <td id="selectVap" class="chk-align"><input type="checkbox" name="vapList"
+                                                                                     ng-model="user.selected"
+                                                                                     ng-click="ctrl.setSaveButton(); ctrl.setState()"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-if="!ctrl.hasVapData">
+                                                        <td colspan="4" id="vapNoData"
+                                                            class="lbl-noData">No Data Found. Please click the refresh button above.
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div id="userPaging" class="alignPaging">
+                                                    <dir-pagination-controls pagination-id="users"
+                                                                             direction-links="true"
+                                                                             boundary-links="true">
+                                                    </dir-pagination-controls>
+                                                </div>
+                                            </div>
+                                        </ui:fragment>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="buttonActions" class="text-right btns-align">
+                        <button type="clear" class="btn btn-sm btn-white"
+                                ng-click="ctrl.clear(); ctrl.setState()">Clear
+                        </button>
+                        <button id="buttonSave" type="Add" class="btn btn-primary btn-save"
+                                ng-disabled="!proofpointForm.$dirty || ctrl.disableSave"
+                                ng-click="ctrl.saveSettings()">Save
+                        </button>
+                    </div>
+
+                    <div id="alert" class="inline-block spContent notify-block">
+                        <div class="alert alert-danger"
+                             ng-if="ctrl.errors.applnError">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <p class="alert-title">
+                                        <i class="fa fa-exclamation-triangle text-danger"/> An
+                                        error has occurred
+                                    </p>
+                                    <p class="alert-body">An error has occured while saving
+                                        the applications, check system logs for more details.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success"
+                             ng-if="ctrl.success.applnSuccess">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="close" data-dismiss="alert" aria-label="close"
+                                       ng-click="ctrl.resetCommit()">&times;</a>
+                                    <p class="alert-title">
+                                        <i class="fa fa-check-circle"/>Settings Saved
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" type="text/css"
+          href="#{plugins.requestContextPath}/plugin/ProofpointPlugin/ui/css/styles.css"/>
+    <script src="#{plugins.requestContextPath}/plugin/ProofpointPlugin/ui/js/angular.min.js"></script>
+    <script src="#{plugins.requestContextPath}/plugin/ProofpointPlugin/ui/js/ui-bootstrap.min.js"></script>
+    <!-- custom -->
+    <script src="#{plugins.requestContextPath}/plugin/ProofpointPlugin/ui/js/proofpoint.js"></script>
+    <script src="#{plugins.requestContextPath}/plugin/ProofpointPlugin/ui/js/dirPagination.js"></script>
+
+</ui:composition>
+
+</body>
+</html>
